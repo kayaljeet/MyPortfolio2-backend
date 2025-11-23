@@ -102,5 +102,45 @@ app.get('/api/personal', async (req, res) => {
   }
 });
 
+app.post('/api/contact', async (req, res) => {
+  try {
+    const { name, email, message } = req.body;
+
+    if (!name || !email || !message) {
+      return res.status(400).json({ message: 'All fields are required' });
+    }
+
+    const database = await connectDB();
+    const messagesCollection = database.collection('messages');
+
+    const newMessage = {
+      name,
+      email,
+      message,
+      createdAt: new Date()
+    };
+
+    await messagesCollection.insertOne(newMessage);
+
+    res.status(201).json({ message: 'Message sent successfully' });
+  } catch (err) {
+    console.error('Error sending message:', err);
+    res.status(500).json({ message: 'Error sending message', error: err.message });
+  }
+});
+
 // --- Export Express App (for Vercel) ---
 module.exports = app;
+
+// --- Start Server (for Local Development) ---
+if (require.main === module) {
+  const PORT = process.env.PORT || 5000;
+  app.listen(PORT, async () => {
+    console.log(`Server running on port ${PORT}`);
+    try {
+      await connectDB();
+    } catch (err) {
+      console.error('Failed to connect to DB on startup:', err);
+    }
+  });
+}
