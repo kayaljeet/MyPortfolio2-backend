@@ -22,7 +22,7 @@
     },
     {
       "source": "/parking-ticket",
-      "destination": "https://landing-pages-wheat-ten.vercel.app/parking-ticket"
+      "destination": "https://landing-pages-wheat-ten.vercel.app/parking-ticket/"
     }
   ]
 }
