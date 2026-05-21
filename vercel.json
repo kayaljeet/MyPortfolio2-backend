@@ -1,9 +1,28 @@
 {
-  "version": 2,
-  "builds": [
-    { "src": "server.js", "use": "@vercel/node" }
-  ],
-  "routes": [
-    { "src": "/(.*)", "dest": "/server.js" }
+  "rewrites": [
+    {
+      "source": "/parking-ticket/app/:path*",
+      "destination": "https://parking-ticket-frontend.vercel.app/parking-ticket/app/:path*"
+    },
+    {
+      "source": "/parking-ticket/app",
+      "destination": "https://parking-ticket-frontend.vercel.app/parking-ticket/app"
+    },
+    {
+      "source": "/parking-ticket/api/:path*",
+      "destination": "https://parking-ticket-server.vercel.app/:path*"
+    },
+    {
+      "source": "/parking-ticket/api",
+      "destination": "https://parking-ticket-server.vercel.app/"
+    },
+    {
+      "source": "/parking-ticket/:path*",
+      "destination": "https://landing-pages-wheat-ten.vercel.app/parking-ticket/:path*"
+    },
+    {
+      "source": "/parking-ticket",
+      "destination": "https://landing-pages-wheat-ten.vercel.app/parking-ticket"
+    }
   ]
 }
